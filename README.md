@@ -18,5 +18,8 @@ Jack Robbers,
 
 James Constable,
 
-Tealkine
+Ming Lu,
 
+Alexander Rousseaux,
+
+Tealkine (Finn),
