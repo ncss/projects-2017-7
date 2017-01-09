@@ -2,9 +2,29 @@
 NCSS 2017, Group 7
 
 This document has been edited by:
-Jack Reichelt
-Jake Bloom
-Liz Chai
-Jack Robbers
-James Constable
-Rachel Schroder
+
+Sonia Kang,
+
+Ben Haselgrove,
+
+Jack Reichelt,
+
+Jake Bloom,
+
+Liz Chai,
+
+Jack Robbers,
+
+James Constable,
+
+Ming Lu,
+
+Alexander Rousseaux,
+
+Tealkine (Finn),
+
+Raff Fantasia,
+
+Claire Jones,
+
+Rachel Schroder,
