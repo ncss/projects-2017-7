@@ -2,15 +2,18 @@
 NCSS 2017, Group 7
 
 This document has been edited by:
-Jack Reichelt
-<<<<<<< HEAD
 
-=======
-Jake Bloom
-<<<<<<< HEAD
-Liz Chai
-=======
-Jack Robbers
+Jack Reichelt,
+
+Jake Bloom,
+
+Liz Chai,
+
+Jack Robbers,
+
+James Constable,
+
+Tealkine,
+
 Ming Lu
->>>>>>> origin/master
->>>>>>> origin/master
+
