@@ -2,6 +2,11 @@
 NCSS 2017, Group 7
 
 This document has been edited by:
+Jack Reichelt
+Jake Bloom
+Jack Robbers
+Ben Haselgrove
+
 
 Jack Reichelt,
 
@@ -14,3 +19,4 @@ Jack Robbers,
 James Constable,
 
 Tealkine
+
