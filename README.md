@@ -2,11 +2,10 @@
 NCSS 2017, Group 7
 
 This document has been edited by:
-<<<<<<< HEAD
-Jack Reichelt
-Jake Bloom
-Claire Jones
-=======
+
+Sonia Kang,
+
+Ben Haselgrove,
 
 Jack Reichelt,
 
@@ -18,5 +17,12 @@ Jack Robbers,
 
 James Constable,
 
-Tealkine
->>>>>>> origin/master
+Ming Lu,
+
+Alexander Rousseaux,
+
+Tealkine (Finn),
+
+Raff Fantasia
+
+Claire Jones
