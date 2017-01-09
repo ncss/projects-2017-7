@@ -4,3 +4,5 @@ NCSS 2017, Group 7
 This document has been edited by:
 Jack Reichelt
 Tim Handley :D
+Jake Bloom
+Jack Robbers
