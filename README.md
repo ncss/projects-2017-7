@@ -1,5 +1,5 @@
-# projects-2017-7
-NCSS 2017, Group 7
+#NCSS 2017, Group 7
+##projects-2017-7
 
 This document has been edited by:
 
@@ -7,7 +7,7 @@ Alex Socha
 
 Jack Reichelt,
 
-Tim Handley :D
+Tim Handley,
 
 Jake Bloom,
 
@@ -17,13 +17,9 @@ Ben Haselgrove,
 
 Sonia Kang,
 
-Finn Foulds-Cook,
-
 Ming Lu,
 
 Alexander Rousseaux,
-
-Tealkine (Finn),
 
 Raff Fantasia,
 
@@ -38,3 +34,5 @@ Tony Lu,
 Emma Ndayisaba,
 
 James Constable,
+
+[Finn Foulds-Cook](https://github.com/tealkine)
