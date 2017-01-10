@@ -12,13 +12,13 @@ while True:
         pre_values.pop(0)
     pre_values.append(z)
     z = sum(pre_values) / len(pre_values)
-
     if z < -900:
         display.show(Image.HAPPY, wait=True)
     elif z > 950:
         display.show(Image.SAD, wait=True)
     else:
         display.clear()
+    sleep(20)
 
 
 '''
