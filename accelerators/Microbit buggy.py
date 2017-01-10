@@ -21,7 +21,6 @@ def stop():
 while True:
     message = radio.receive()
     if message:
-        print('test')
         forward()
         sleep(500)
         stop()
