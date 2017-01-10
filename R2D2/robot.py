@@ -52,11 +52,7 @@ while True:
             display.scroll(str(score))
         elif message == "left":
             left()
-            sleep(200)
-            stop()
-            forward()
+            sleep(10)
         elif message == "right":
             right()
-            sleep(200)
-            stop()
-            forward()
+            sleep(10)
