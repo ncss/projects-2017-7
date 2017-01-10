@@ -1,14 +1,18 @@
 BLAA
 
 Temple Run:
-(jump, stand, crouch, slide/sit)
+(jump, stand, crouch)
 obstacles to jump/crouch over/under
 Display shows obstacles what actions to do
 
+<<<<<<< HEAD
+Calibrate standing
+=======
 Jumping is accelerometer
 Crouching is button on floor
 
 MVP:
+>>>>>>> origin/master
 
 Jumping over obstacles. Ends on time limit or mistake.
 
