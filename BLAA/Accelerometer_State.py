@@ -1,5 +1,6 @@
 from microbit import *
 import radio
+import music
 
 radio.on()
 radio.config(channel=65,
@@ -19,6 +20,7 @@ while True:
         sleep(100)
         display.show(Image.ARROW_N, wait=False)
         radio.send("jump")
+        music.play(music.BA_DING, wait=False, loop=False)
         sleep(1000)
         display.clear()
     
@@ -26,5 +28,6 @@ while True:
         sleep(200)
         display.show(Image.ARROW_S, wait=False)
         radio.send("crouch")
+        music.play("C4:1", wait=False, loop=False)
         sleep(1000)
         display.clear()
