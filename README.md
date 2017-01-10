@@ -34,3 +34,5 @@ Claire Jones,
 Rachel Schroder,
 
 Tony Lu,
+
+[Alex Tan](https://github.com/Pilex1)
