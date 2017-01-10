@@ -28,5 +28,3 @@ while True:
         radio.send("crouch")
         sleep(1000)
         display.clear()
-    else:
-        radio.send("stand")
