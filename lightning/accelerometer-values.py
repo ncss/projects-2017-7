@@ -1,6 +1,7 @@
 from microbit import *
 import music
 import radio
+import math
 
 #Project: right handed arm wrestle
 
@@ -11,6 +12,12 @@ pre_values = []
 
 while True:
     z = accelerometer.get_z()
+    theta = acos((z-29.86)/1022.4)
+
+    theta_deg = degrees(theta)
+    print(theta, theta_deg, z)
+ #   if theta_deg == 'nan':
+
     if len(pre_values) > 50:
         pre_values.pop(0)
     pre_values.append(z)
