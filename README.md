@@ -2,25 +2,36 @@
 NCSS 2017, Group 7
 
 This document has been edited by:
-<<<<<<< HEAD
-Jack Reichelt
-Jake Bloom
-Liz Chai
-Jack Robbers
-James Constable
-Alex Socha
 
-=======
+Alex Socha
 
 Jack Reichelt,
 
-Jake Bloom,
+Tim Handley :D
 
-Liz Chai,
+Jake Bloom,
 
 Jack Robbers,
 
-James Constable,
+Ben Haselgrove,
 
-Tealkine
->>>>>>> origin/master
+Sonia Kang,
+
+Finn Foulds-Cook,
+
+Ming Lu,
+
+Alexander Rousseaux,
+
+Tealkine (Finn),
+
+Raff Fantasia,
+
+Claire Jones,
+
+Rachel Schroder,
+
+Tony Lu,
+
+Emma Ndayisaba 
+
