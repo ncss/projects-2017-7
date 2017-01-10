@@ -28,10 +28,17 @@ def right():
 radio.on()
 radio.config(channel=58)
 
+display.clear()
+
 while True:
     if button_a.was_pressed():
         forward()
     message = radio.receive()
+    if pin1.read_analog() < 20 or pin2.read_analog() < 20:
+        stop()
+        display.show(Image.SAD)
+        sleep(2000)
+        display.clear()
     if button_b.was_pressed():
         stop()
     elif message == "left":
