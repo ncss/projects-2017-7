@@ -1,5 +1,5 @@
 from microbit import *
-import radio              
+import radio
 radio.on()
 while True:
   if crouch == 1:
@@ -22,16 +22,25 @@ while True:
       sleep(10)
       score = score + 1
       sleep(10)
+#      radio.send("green")
+#      sleep(20)
+#      radio.send("red")
 
   if message == "slide":
       sleep(10)
       score = score + 1
       sleep(10)
+#      radio.send("green")
+#      sleep(20)
+#      radio.send("red")
 
   if message == "jump":
       sleep(10)
       score = score + 1
       sleep(10)
+#      radio.send("green")
+#      sleep(20)
+#      radio.send("red")
 
   if message == "stand":
-      sleep(10)   
+      sleep(10)
