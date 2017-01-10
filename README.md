@@ -3,19 +3,23 @@ NCSS 2017, Group 7
 
 This document has been edited by:
 
-Sonia Kang,
-
-Ben Haselgrove,
-
 Jack Reichelt,
+
+Tim Handley :D
 
 Jake Bloom,
 
-Liz Chai,
+Jack Robbers,
+
+Jake Bloom,
 
 Jack Robbers,
 
-James Constable,
+Ben Haselgrove,
+
+Sonia Kang,
+
+Finn Foulds-Cook,
 
 Ming Lu,
 
