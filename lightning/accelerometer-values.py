@@ -1,27 +1,35 @@
+#Project: right handed arm wrestle
 from microbit import *
 import music
 import radio
-import math
+from math import degrees, acos
 
-#Project: right handed arm wrestle
 
 radio.on()
 radio.config(channel=12, data_rate=radio.RATE_250KBIT)
 key = 'l'
-pre_values = []
 
+#pre_values = []
 while True:
     z = accelerometer.get_z()
     theta = acos((z-29.86)/1022.4)
 
     theta_deg = degrees(theta)
     print(theta, theta_deg, z)
- #   if theta_deg == 'nan':
 
+'''
     if len(pre_values) > 50:
         pre_values.pop(0)
     pre_values.append(z)
     z = sum(pre_values) / len(pre_values)
+'''
+
+    if str(theta_deg).isnumeric():
+        radio.send(key + theta_deg)
+    else:
+        radio.send(key + '180')
+
+'''
     if z < -900:
         radio.send(key + 'f')
     elif z > 950:
@@ -29,7 +37,7 @@ while True:
     else:
         radio.send(key + 's')
     sleep(20)
-
+'''
 
 '''
 Alternative Codes without Averages
