@@ -1,6 +1,12 @@
 from microbit import *
+
+#Import Music library
 import music
-#right handed arm wrestle
+
+
+#Project: right handed arm wrestle
+
+
 """
 def calibrate():
     xcen=accelerometer.get_x()
