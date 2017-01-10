@@ -3,13 +3,11 @@ NCSS 2017, Group 7
 
 This document has been edited by:
 
+Alex Socha
+
 Jack Reichelt,
 
 Tim Handley :D
-
-Jake Bloom,
-
-Jack Robbers,
 
 Jake Bloom,
 
@@ -38,3 +36,5 @@ Tony Lu,
 [Alex Tan](https://github.com/Pilex1),
 
 Emma Ndayisaba,
+
+James Constable,
