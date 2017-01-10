@@ -36,6 +36,7 @@ while True:
     message = radio.receive()
     if pin1.read_analog() < 20 or pin2.read_analog() < 20:
         stop()
+        radio.send("stop")
         display.show(Image.SAD)
         sleep(2000)
         display.clear()
