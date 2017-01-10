@@ -40,17 +40,21 @@ def show_display(n):
 while True:
     
     if button_a.was_pressed():
+        
         display.show("3")
         sleep(1000)
         display.show("2")
         sleep(1000)
         display.show("1")
         sleep(1000)
+        display.show(Image.HEART)
         running = True
         radio.send("start " + str(situp_start)) 
     
     if not running:
         continue
+    
+    
     
     msg = radio.receive()
     if msg:
@@ -60,6 +64,8 @@ while True:
             break
     
     z = accelerometer.get_z()
+    
+    
     
     #lying down
     if z > MAX_THRESHOLD:
@@ -71,6 +77,7 @@ while True:
                 #music.play(music.JUMP_UP, wait = False)
                 
                 situp_count += 0.5
+                show_display(situp_count)
                 up = False
                 
                 radio.send("1")
@@ -85,8 +92,9 @@ while True:
                 #music.play(music.JUMP_DOWN, wait = False)
                 
                 situp_count += 0.5
+                show_display(situp_count)
                 up = True
     
-    show_display(situp_count)
+
     print(situp_count, running_time() - situp_start)
     sleep(100)
