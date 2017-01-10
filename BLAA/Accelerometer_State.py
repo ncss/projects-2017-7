@@ -1,11 +1,29 @@
 from microbit import *
+import radio
+
+radio.on()
+radio.config(channel=65,
+address=0x6e637373)
+initial_acceleration = accelerometer.get_y()
 
 while True:
-    if button_a.was_pressed():
-        break
+    y_axis = accelerometer.get_y() - initial_acceleration
+    
+    if button_a.was_pressed() and button_b.was_pressed():
+        initial_acceleration = accelerometer.get_y()
+    
+    if y_axis > 600:
+        sleep(150)
+        display.show(Image.ARROW_N, wait=False)
+        radio.send("jump")
+        sleep(1000)
+        display.clear()
+    
+    if y_axis < -700:
+        sleep(150)
+        display.show(Image.ARROW_S, wait=False)
+        radio.send("crouch")
+        sleep(1000)
+        display.clear()
     else:
-        x = accelerometer.get_x()
-        y = accelerometer.get_y()
-        z = accelerometer.get_z()
-        print(str(x) + ", " + str(y) + ", " + str(z))
-        sleep(500)
+        radio.send("stand")
