@@ -2,4 +2,22 @@
 
 Tim Handley, Sonia Kang, Finn Foulds-Cook, Raff Fantasia
 
-The best team
+Project:
+
+
+Minimal Viable Product:
+
+Have a microbit that can accurately detect victories in an arm wrestle
+
+
+
+
+Final Goal:
+
+Have a microbit that controls a robot that corrosponds to the arm wrestle in some way
+
+For Example:
+	-- Move forward/backward
+	-- Turn Left/right
+	-- Navigate
+
