@@ -16,6 +16,12 @@ while True:
         sleep(500)
         display.clear()
     
+    message = radio.receive()
+    if message and type(message) == str:
+        if str(message) == "impact":
+            music.stop()
+            music.play("C2", wait=False, loop=False)
+    
     if y_axis > 600:
         sleep(100)
         display.show(Image.ARROW_N, wait=False)
@@ -28,6 +34,6 @@ while True:
         sleep(200)
         display.show(Image.ARROW_S, wait=False)
         radio.send("crouch")
-        music.play("C4:1", wait=False, loop=False)
+        music.play(music.BA_DING, wait=False, loop=False)
         sleep(1000)
         display.clear()
