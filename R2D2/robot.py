@@ -30,7 +30,7 @@ radio.config(channel=58)
 start = 0
 display.clear()
 pressed = False
-
+error_count = 0
 
 while True:
     if button_a.was_pressed():
@@ -39,26 +39,24 @@ while True:
     message = radio.receive()
     if pressed:
         forward()
-        sleep(400)
         if pin1.read_analog() < 20 or pin2.read_analog() < 20:
-            stop()
-            pressed = False
-            end = running_time()
-            radio.send("stop")
-            display.show(Image.SAD)
-            sleep(2000)
-            display.clear()
-            display.scroll(str(end-start))
+            radio.send("white")
+            display.show(Image.SAD, delay=500, wait=False, clear=True)
+            error_count += 1
         if button_b.was_pressed():
+            end = running_time()
             stop()
             pressed = False
+            time = float("{0:.2f}".format((end-start)/1000))
+            score = time + float(error_count)
+            display.scroll(str(score))
         elif message == "left":
             left()
-            sleep(100)
+            sleep(200)
             stop()
             forward()
         elif message == "right":
             right()
-            sleep(100)
+            sleep(200)
             stop()
             forward()
