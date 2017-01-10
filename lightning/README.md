@@ -1,10 +1,5 @@
-
 #Team Lightning
 ##NCSS 2017, Group 7
-
-
-
-
 
 ######Team Members:
 
