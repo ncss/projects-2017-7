@@ -31,3 +31,12 @@ Finn and Tim - Robot
 
 Sonia and Raff - Microbit
 
+##Progress Report
+
+#####Robot
+
+Functioning and implementing connection to accelerometer module
+
+#####Accelerometer
+
+Functioning and being made more accurate
