@@ -16,14 +16,14 @@ while True:
         display.clear()
     
     if y_axis > 600:
-        sleep(200)
+        sleep(100)
         display.show(Image.ARROW_N, wait=False)
         radio.send("jump")
         sleep(1000)
         display.clear()
     
     if y_axis < -600:
-        sleep(400)
+        sleep(200)
         display.show(Image.ARROW_S, wait=False)
         radio.send("crouch")
         sleep(1000)
