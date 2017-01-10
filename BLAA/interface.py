@@ -1,5 +1,10 @@
 from microbit import *
 import random
+import radio
+
+radio.on()
+radio.config(channel = 65,
+address=0x6e637373)
 
 grid = []
 
@@ -16,8 +21,8 @@ def updateDisplay():
 class Player:
     resetGame = False
     dead = False
-    gravity = 50.0
-    jumpVelocity = 25.0
+    gravity = 30.0
+    jumpVelocity = 20.0
     isCrouching = False
     
     def reset(self):
@@ -28,6 +33,7 @@ class Player:
         self.deathTimer = 0.0
         self.resetGame = False
         self.isCrouching = False
+        self.crouchTimer = 0
         self.hidden = False
 
     def jump(self):
@@ -42,30 +48,32 @@ class Player:
         if self.pos >= 3.99:
             self.pos = 3.99
             self.velocity = 0.0
+        if self.isCrouching:
+          self.crouchTimer += delta
+          if self.crouchTimer > 0.75:
+            self.crouchTimer = 0.0
+            self.isCrouching = False
         if self.dead:
           self.deathTimer += delta
-          self.deathPipe.pipePos = -1
-          if self.deathTimer > 2.0:
+          self.hidden = self.deathTimer % 0.1 > 0.05
+          if self.deathTimer > 0.5:
             self.deathTimer = 0.0
-            self.dead = False
+            self.dead = False  
  
     def getPixelPos(self):
-      pixelPos = []
-      if not self.hidden:
-        pixelPos.append((0, 4 - int(self.pos)))
-        if not self.isCrouching: pixelPos.append((0, 4 - int(self.pos) - 1))
+      pixelPos = [(0, 4 - int(self.pos))]
+      if not self.isCrouching: pixelPos.append((0, 4 - int(self.pos) - 1))
       return pixelPos
         
     def display(self):
       pixelPos = self.getPixelPos()
       for pixel in pixelPos:
-        setPixel(pixel[0], pixel[1], 9)
+        setPixel(pixel[0], pixel[1], 9 if not self.hidden else 0)
         
     def checkDeath(self, terrainMap):
         playerPos = self.getPixelPos()
         for pipe in terrainMap.pipes:
-          if pipe is self.deathPipe:
-            continue
+            if pipe is self.deathPipe: continue
             for pixel in pipe.getPixels():
               for playerPixel in playerPos:
                 if pixel[0] == playerPixel[0] and pixel[1] == playerPixel[1]:
@@ -95,12 +103,12 @@ class Pipe:
 class TerrainMap:
     pipes = [Pipe()]
     nextPipeTimer = 1
-
+    
     def movePipes(self):
         self.nextPipeTimer -= 1
         if self.nextPipeTimer < 0:
             self.pipes.append(Pipe())
-            self.nextPipeTimer = 4
+            self.nextPipeTimer = 8
             if self.pipes[0].pipePos < 0:
               del self.pipes[0]
         for pipe in self.pipes:
@@ -128,21 +136,25 @@ while True:
         delta = (running_time() - prevFrameTime) / 1000.0
         prevFrameTime = running_time()
         if button_a.was_pressed(): player.jump()
-        player.isCrouching = button_b.is_pressed()
+        if button_b.was_pressed():
+          player.isCrouching = True
+        
+        message = radio.receive()
+        if message and type(message) == str:
+          if str(message) == "jump":
+            player.jump()
+          if str(message) == "crouch":
+            player.isCrouching = True
 
         player.update(delta)
-        if not player.dead:
-          player.checkDeath(terrainMap)
-          moveTimer += delta
-          if moveTimer > 0.25:
-              moveTimer = 0
-              terrainMap.movePipes()
+        
+        player.checkDeath(terrainMap)
+        moveTimer += delta
+        if moveTimer > 0.2:
+            moveTimer = 0
+            terrainMap.movePipes()
             
-        player.display()
         terrainMap.display()
+        player.display()
         updateDisplay()
-        if player.resetGame:
-            display.clear()
-            sleep(500)
-            break
 
