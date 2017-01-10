@@ -1,6 +1,8 @@
 from microbit import *
 import radio
 radio.on()
+radio.config(channel = 65,
+address=0x6e637373)
 while True:
   if crouch == 1:
     radio.send("crouch")
