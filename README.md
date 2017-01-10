@@ -35,4 +35,6 @@ Rachel Schroder,
 
 Tony Lu,
 
-[Alex Tan](https://github.com/Pilex1)
+[Alex Tan](https://github.com/Pilex1),
+
+Emma Ndayisaba,
