@@ -44,11 +44,11 @@ while True:
         stop()
     elif message == "left":
         left()
-        sleep(10)
+        sleep(100)
         stop()
         forward()
     elif message == "right":
         right()
-        sleep(10)
+        sleep(100)
         stop()
         forward()
