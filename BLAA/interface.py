@@ -4,8 +4,8 @@ import random
 grid = []
 
 def setPixel(x, y, brightness):
-    grid[x][y] = brightness
-
+    if x >= 0 and x < 5 and y >= 0 and y < 5:
+        grid[x][y] = brightness
 
 def updateDisplay():
     for x in range(0, 5):
@@ -13,59 +13,71 @@ def updateDisplay():
             display.set_pixel(x, y, grid[x][y])
 
 
-class Bird:
+class Player:
     resetGame = False
     dead = False
-    gravity = 30.0
-    jumpVelocity = 20.0
+    gravity = 50.0
+    jumpVelocity = 25.0
+    isCrouching = False
     
     def reset(self):
-        self.birdPos = 0.0
-        self.birdVelocity = 0.0
+        self.pos = 0.0
+        self.velocity = 0.0
         self.dead = False
         self.deathPipe = None
-        self.deathTimer = 0
+        self.deathTimer = 0.0
         self.resetGame = False
-    
-    def setVelocity(self, velocity):
-        self.birdVelocity = velocity
+        self.isCrouching = False
+        self.hidden = False
 
     def jump(self):
-        self.setVelocity(self.jumpVelocity)
+        self.velocity = self.jumpVelocity
 
     def update(self, delta):
-        self.birdVelocity -= self.gravity * delta
-        self.birdPos += self.birdVelocity * delta
-        if self.birdPos <= 0.0:
-            self.birdPos = 0.0
-            self.birdVelocity = 0.0
-        if self.birdPos >= 4.99:
-            self.birdPos = 4.99
-            self.birdVelocity = 0.0
+        self.velocity -= self.gravity * delta
+        self.pos += self.velocity * delta
+        if self.pos <= 0.0:
+            self.pos = 0.0
+            self.velocity = 0.0
+        if self.pos >= 3.99:
+            self.pos = 3.99
+            self.velocity = 0.0
+        if self.dead:
+          self.deathTimer += delta
+          self.deathPipe.pipePos = -1
+          if self.deathTimer > 2.0:
+            self.deathTimer = 0.0
+            self.dead = False
  
     def getPixelPos(self):
-        return (0, int(4 - self.birdPos))
+      pixelPos = []
+      if not self.hidden:
+        pixelPos.append((0, 4 - int(self.pos)))
+        if not self.isCrouching: pixelPos.append((0, 4 - int(self.pos) - 1))
+      return pixelPos
         
     def display(self):
-      pos = self.getPixelPos()
-      if pos[1] < 5 and pos[1] >= 0:
-        setPixel(pos[0], pos[1], 9)
-    
-    def hitPipe(self, deathPipe):
-      print("impact")
-    
+      pixelPos = self.getPixelPos()
+      for pixel in pixelPos:
+        setPixel(pixel[0], pixel[1], 9)
+        
     def checkDeath(self, terrainMap):
-        pos = self.getPixelPos()
+        playerPos = self.getPixelPos()
         for pipe in terrainMap.pipes:
+          if pipe is self.deathPipe:
+            continue
             for pixel in pipe.getPixels():
-                if pixel[0] == pos[0] and pixel[1] == pos[1]:
-                    self.hitPipe(pipe)
-                
+              for playerPixel in playerPos:
+                if pixel[0] == playerPixel[0] and pixel[1] == playerPixel[1]:
+                    self.dead = True
+                    self.deathPipe = pipe
+                    return
 
 class Pipe:
-    def __init__(self):
-        self.pipeHeight = random.randint(1,3)
+    def __init__(self):   
         self.pipeType = random.randint(0,1)
+        if self.pipeType == 0: self.pipeHeight = random.randint(1,2)
+        else: self.pipeHeight = random.randint(2,4)
         self.pipePos = 5
   
     def getPixels(self):
@@ -88,27 +100,26 @@ class TerrainMap:
         self.nextPipeTimer -= 1
         if self.nextPipeTimer < 0:
             self.pipes.append(Pipe())
-            self.nextPipeTimer = 3
+            self.nextPipeTimer = 4
             if self.pipes[0].pipePos < 0:
-				del self.pipes[0]
+              del self.pipes[0]
         for pipe in self.pipes:
             pipe.move()
 
     def display(self):
         for pipe in self.pipes:
             for pixel in pipe.getPixels():
-                if pixel[0] >= 0 and pixel[0] < 5 and pixel[1] >= 0 and pixel[1] < 5:
-                      setPixel(pixel[0], pixel[1], 9)
+                setPixel(pixel[0], pixel[1], 9)
 
 
-bird = Bird()
+player = Player()
 terrainMap = TerrainMap()
 moveTimer = 0.0
 prevFrameTime = running_time()
 grid = [[0,0,0,0,0] for i in range(5)]
 while True:
     terrainMap.pipes = []
-    bird.reset()
+    player.reset()
     while True:
         for x in range(5):
             for y in range(5):
@@ -116,20 +127,21 @@ while True:
 
         delta = (running_time() - prevFrameTime) / 1000.0
         prevFrameTime = running_time()
-        if button_a.was_pressed():
-            bird.jump()
+        if button_a.was_pressed(): player.jump()
+        player.isCrouching = button_b.is_pressed()
 
-        bird.update(delta)
-        bird.checkDeath(terrainMap)
-        moveTimer += delta
-        if moveTimer > 0.3:
-            moveTimer = 0
-            terrainMap.movePipes()
+        player.update(delta)
+        if not player.dead:
+          player.checkDeath(terrainMap)
+          moveTimer += delta
+          if moveTimer > 0.25:
+              moveTimer = 0
+              terrainMap.movePipes()
             
-        bird.display()
+        player.display()
         terrainMap.display()
         updateDisplay()
-        if bird.resetGame:
+        if player.resetGame:
             display.clear()
             sleep(500)
             break
