@@ -52,6 +52,23 @@ reverse_on = False
 forward_on = False
 stop_on    = False
 
+
+
+#New state machine based loop
+
+while True:
+	print('ERROR: THIS CODE IS DEFINITlY BROKEN')
+
+
+
+
+
+
+
+
+
+
+"""
 #Main loop for recieveing data
 while True:
 	#Attempts to convert recieve to string and store in mess
@@ -80,6 +97,6 @@ while True:
 			stop_on = True
 			reverse_on = False
 			forward_on = False
-
+"""
 
 #### End Of Project ####
