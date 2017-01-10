@@ -16,4 +16,6 @@ while True:
     if pin8.read_digital() == 1:
         radio.send(button_type)
         display.show(Image.SQUARE_SMALL)
-    sleep(5)
+        radio.send("music")
+        sleep(500)
+    
