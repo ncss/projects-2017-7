@@ -27,28 +27,38 @@ def right():
     
 radio.on()
 radio.config(channel=58)
-
+start = 0
 display.clear()
+pressed = False
+
 
 while True:
     if button_a.was_pressed():
-        forward()
+        pressed = True
+        start = running_time()
     message = radio.receive()
-    if pin1.read_analog() < 20 or pin2.read_analog() < 20:
-        stop()
-        radio.send("stop")
-        display.show(Image.SAD)
-        sleep(2000)
-        display.clear()
-    if button_b.was_pressed():
-        stop()
-    elif message == "left":
-        left()
-        sleep(100)
-        stop()
+    if pressed:
         forward()
-    elif message == "right":
-        right()
-        sleep(100)
-        stop()
-        forward()
+        sleep(400)
+        if pin1.read_analog() < 20 or pin2.read_analog() < 20:
+            stop()
+            pressed = False
+            end = running_time()
+            radio.send("stop")
+            display.show(Image.SAD)
+            sleep(2000)
+            display.clear()
+            display.scroll(str(end-start))
+        if button_b.was_pressed():
+            stop()
+            pressed = False
+        elif message == "left":
+            left()
+            sleep(100)
+            stop()
+            forward()
+        elif message == "right":
+            right()
+            sleep(100)
+            stop()
+            forward()
