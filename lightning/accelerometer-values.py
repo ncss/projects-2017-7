@@ -1,9 +1,12 @@
 from microbit import *
 import music
+import radio
 
 #Project: right handed arm wrestle
 
-
+radio.on()
+radio.config(channel=12, data_rate=radio.RATE_250KBIT)
+key = 'l'
 pre_values = []
 
 while True:
@@ -13,11 +16,11 @@ while True:
     pre_values.append(z)
     z = sum(pre_values) / len(pre_values)
     if z < -900:
-        display.show(Image.HAPPY, wait=True)
+        radio.send(key + 'f')
     elif z > 950:
-        display.show(Image.SAD, wait=True)
+        radio.send(key + 'r')
     else:
-        display.clear()
+        radio.send(key + 's')
     sleep(20)
 
 
