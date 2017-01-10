@@ -5,9 +5,12 @@ Temple Run:
 obstacles to jump/crouch over/under
 Display shows obstacles what actions to do
 
+Jumping is accelerometer
+Crouching is button on floor
 
+MVP:
 
-
+Jumping over obstacles. Ends on time limit or mistake.
 
 
 
