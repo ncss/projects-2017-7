@@ -105,6 +105,8 @@ while True:
                     scroll_finish_time_lost(arr[1])
                     display.scroll(arr[0] + " won in " + arr[1] + " ms.")
                 running = False
+                situp_count = 0
+                
         
         #print(situp_count, running_time() - situp_start)
     

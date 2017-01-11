@@ -17,11 +17,12 @@ player2_ready = False
 start = -1
 running = False
 
+#backwards actually
 def forward():
-    pin0.write_digital(1)
-    pin16.write_digital(0)
-    pin12.write_digital(0)
-    pin8.write_digital(1)
+    pin0.write_digital(0)
+    pin16.write_digital(1)
+    pin12.write_digital(1)
+    pin8.write_digital(0)
         
 def stop():
     pin0.write_digital(0)
@@ -29,11 +30,11 @@ def stop():
     pin12.write_digital(0)
     pin8.write_digital(0)
     
-def scroll_finish_time_won(ms):
-    display.scroll("You won! You took " + str(ms) + " milliseconds.", wait = True, loop = False)
+def scroll_finish_time_won(s):
+    display.scroll("You won! You took " + str(s) + " seconds.", wait = True, loop = False)
     
-def scroll_finish_time_lost(ms):
-    display.scroll("You lost! You took " + str(ms) + " milliseconds.", wait = True, loop = False)
+def scroll_finish_time_lost(s):
+    display.scroll("You lost! You took " + str(s) + " seconds.", wait = True, loop = False)
 
 while True:
     
@@ -67,7 +68,7 @@ while True:
             if not arr[0] == PLAYER_NAME:
                 #the other buggy won
                 scroll_finish_time_lost(arr[1])
-                display.scroll(arr[0] + " won in " + arr[1] + " milliseconds.")
+                display.scroll(arr[0] + " won in " + arr[1] + " seconds.")
                 
             #either way, stop the buggies
             running = False
@@ -91,9 +92,12 @@ while True:
     if pin1.read_analog() < 10 or pin2.read_analog() < 10:        
         display.show(Image.YES)
         time = running_time() - start
+        time /= 1000
+        time = int(time)
         radio.send("finish " + PLAYER_NAME + " " + str(time))
         scroll_finish_time_won(time)
         running = False
+        start = -1
             
     #if button_b.was_pressed():
     #    win = False
