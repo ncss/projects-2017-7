@@ -39,7 +39,7 @@ def yield_angle():
 angle = yield_angle()
 while True:
     current_angle = next(angle)
-    print(current_angle)
-    radio.send(key + str(current_angle))
+    print(int(current_angle))
+    radio.send(key + str(int(current_angle)))
         
 
