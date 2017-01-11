@@ -93,7 +93,7 @@ while True:
         if msg:
             if msg.startswith("finish "):
                 s = msg[len("finish "):]
-                arr = t.split(" ")
+                arr = s.split(" ")
                 if arr[0] == PLAYER_NAME:
                     display.scroll("You won! You took " + str(arr[1]) + " seconds.", wait = True)
                 else:

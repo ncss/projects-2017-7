@@ -6,8 +6,8 @@ CHANNEL = 95
 radio.on()
 radio.config(channel = CHANNEL)
 
-PLAYER_NAME_1 = "Player 1"
-PLAYER_NAME_2 = "Player 2"
+PLAYER_NAME_1 = "Player_1"
+PLAYER_NAME_2 = "Player_2"
 
 PLAYER_NAME = PLAYER_NAME_2
 
