@@ -45,7 +45,7 @@ while True:
                 start_time = running_time()
                 initial = False
             else:
-                if running_time() - start_time < 300:
+                if running_time() - start_time < 400:
                     continue
                 else: 
                     under_time = False
@@ -54,9 +54,8 @@ while True:
         else:
             initial = True
     else:
-        print("ok")
         display.show(button_lookup[button_type] * 4)
-        sleep(1500)
+        sleep(800)
         under_time = True
         initial = True
         
