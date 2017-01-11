@@ -51,7 +51,7 @@ pressed = False
 
 while True:
     if button_a.was_pressed():
-        music.play(['F4:4', 'R:3', 'F4:4', 'R:3', 'F4:4', 'R:3', 'F5:8'], wait=False, loop=True)
+        music.play(['F4:4', 'R:3', 'F4:4', 'R:3', 'F4:4', 'R:3', 'F5:8'], wait=False,)
         forward()
         pressed = True
         start = running_time()
