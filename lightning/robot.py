@@ -17,10 +17,10 @@ r.config(queue=5, channel=12, data_rate=r.RATE_250KBIT)
 key = "l"
 
 #Set pins to analog
-pin0.set_analog_period(20)
-pin16.set_analog_period(20)
-pin12.set_analog_period(20)
-pin8.set_analog_period(20)
+#pin0.set_analog_period(20)
+#pin16.set_analog_period(20)
+#pin12.set_analog_period(20)
+#pin8.set_analog_period(20)
 
 #Extra variable declarations
 direction = 0
