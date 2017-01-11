@@ -10,22 +10,20 @@ initial_acceleration = accelerometer.get_y()
 while True:
     y_axis = accelerometer.get_y() - initial_acceleration
     message = radio.receive()
-    if button_a.is_pressed() and button_b.is_pressed():
-        radio.send("start")
-        initial_acceleration = accelerometer.get_y()
-        display.show(Image.HEART)
-        sleep(500)
-        display.clear()
-    
     if message and type(message) == str:
-        if str(message) == "impact1":
+        if str(message) == "start":
+            initial_acceleration = accelerometer.get_y()
+            display.show(Image.GIRAFFE)
+            sleep(500)
+            display.clear()
+        elif str(message) == "impact2":
             music.stop()
             music.play("C2", wait=False, loop=False)
     
     if y_axis > 600:
         sleep(100)
         display.show(Image.ARROW_N, wait=False)
-        radio.send("jump1")
+        radio.send("jump2")
         music.stop()
         music.play(music.BA_DING, wait=False, loop=False)
         sleep(500)
@@ -34,7 +32,7 @@ while True:
     if y_axis < -600:
         sleep(200)
         display.show(Image.ARROW_S, wait=False)
-        radio.send("crouch1")
+        radio.send("crouch2")
         music.stop()
         music.play(music.BA_DING, wait=False, loop=False)
         sleep(500)
