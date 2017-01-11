@@ -5,18 +5,10 @@ playing = False
 radio.on()
 radio.config(channel=58)
 while True:
-    if button_a.was_pressed():
-        if playing:
-            playing = False
-            music.stop()
-        else:
-            music.play(music.CHASE, wait= False, loop= True)
-            sleep(5)
-            playing = True
-    #if radio.receive() == "music":
-        #music.play(music.BA_DING)
-        #music.stop()
-    if radio.receive() == 'white':
-        music.play(music.WAWAWAWAA)
+    if radio.receive() == 'starting':
+        music.play(['F4:4', 'R:3', 'F4:4', 'R:3', 'F4:4', 'R:3', 'F5:8'], wait=True)
+    #if radio.receive() == 'white':
+        #music.play(music.WAWAWAWAA)
+
 
         
