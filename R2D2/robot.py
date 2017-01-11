@@ -13,46 +13,66 @@ def stop():
     pin12.write_digital(0)
     pin8.write_digital(0)
     
-def left():
+def digital_left():
     pin0.write_digital(1)
     pin16.write_digital(0)
     pin12.write_digital(1)
     pin8.write_digital(0)
   
-def right():
+def digital_right():
     pin0.write_digital(0)
     pin16.write_digital(1)
     pin12.write_digital(0)
     pin8.write_digital(1) 
+
+def pwm_left():
+    pin0.write_digital(0)
+    pin16.write_analog(350)
+    pin12.write_digital(1)
+    pin8.write_digital(0)
+    
+def pwm_right():
+    pin0.write_digital(0)
+    pin16.write_digital(1)
+    pin12.write_analog(350)
+    pin8.write_digital(0)
+
+def reverse():
+    pin0.write_digital(1)
+    pin16.write_digital(0)
+    pin12.write_digital(0)
+    pin8.write_digital(1)
     
 radio.on()
 radio.config(channel=58)
 start = 0
 display.clear()
 pressed = False
-error_count = 0
 
 while True:
     if button_a.was_pressed():
+        forward()
         pressed = True
         start = running_time()
     message = radio.receive()
     if pressed:
-        forward()
+        #forward()
         if pin1.read_analog() < 20 or pin2.read_analog() < 20:
             radio.send("white")
             display.show(Image.SAD, delay=500, wait=False, clear=True)
-            error_count += 1
+            reverse()
+            sleep(1000)
+            stop()
         if button_b.was_pressed():
             end = running_time()
             stop()
             pressed = False
             time = float("{0:.2f}".format((end-start)/1000))
-            score = time + float(error_count)
-            display.scroll(str(score))
+            display.scroll(str(time))
         elif message == "left":
-            left()
-            sleep(10)
+            pwm_left()
+            #print(message)
+            #sleep(100)
         elif message == "right":
-            right()
-            sleep(10)
+            pwm_right()
+            #sleep(10)
