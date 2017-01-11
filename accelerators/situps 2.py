@@ -14,19 +14,16 @@ MIN_DOWN_TIME = 800
 
 CHANNEL = 95
 
-beat_frequency = 5
 situp_count = 0
 
 up = True
 up_start = running_time()
 down_start = running_time()
-situp_start = 0
 
 running = False
 
 radio.on()
 radio.config(channel = CHANNEL)
-
 
 def show_display(n):
     display.clear()
@@ -44,9 +41,6 @@ def scroll_finish_time_lost(ms):
     display.scroll("You lost! You took " + str(ms) + " ms.", wait = True, loop = False)
     
 while True:
-    
-    #radio.send("forward " + PLAYER_NAME)
-    
     if not running:
         if button_a.was_pressed():
             display.scroll("waiting", wait = False, loop = True)
@@ -63,7 +57,6 @@ while True:
                 display.show("1")
                 sleep(1000)
                 display.show(Image.HEART)
-                situp_start = running_time()
                 running = True
         
     else:
@@ -82,6 +75,7 @@ while True:
                     music.play(music.JUMP_UP, wait = False)
                     
                     situp_count += 0.5
+                    up_start = running_time()
                     show_display(situp_count)
                     up = False
                     
@@ -96,6 +90,7 @@ while True:
                     music.play(music.JUMP_DOWN, wait = False)
                     
                     situp_count += 0.5
+                    down_start = running_time()
                     show_display(situp_count)
                     up = True
         

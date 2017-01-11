@@ -88,6 +88,7 @@ while True:
         
     #crossing finishing line
     if pin1.read_analog() < 10 or pin2.read_analog() < 10:        
+        display.show(Image.YES)
         time = running_time() - start
         radio.send("finish " + PLAYER_NAME + " " + str(time))
         scroll_finish_time_won(time)
