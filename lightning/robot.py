@@ -16,6 +16,14 @@ r.config(queue=5, channel=12, data_rate=r.RATE_250KBIT)
 #Stops interferance from other teams with key
 key = "l"
 
+#Set pins to analog
+pin0.set_analog_period(20)
+pin16.set_analog_period(20)
+pin12.set_analog_period(20)
+pin8.set_analog_period(20)
+
+#Extra variable declarations
+direction = 0
 #Functions for robot movement
 
 def move(speed, direction):
@@ -24,46 +32,58 @@ def move(speed, direction):
 	elif direction > 0:
 		forward(speed)
 
-
 def reverse(speed):
-	pin0.write_digital(1)
-	pin16.write_digital(0)
-	pin12.write_digital(0)
-	pin8.write_digital(1)
+	pin0.write_analog(speed)
+	pin16.write_analog(0)
+	pin12.write_analog(0)
+	pin8.write_analog(speed)
 
 def forward(speed):
-	pin0.write_digital(0)
-	pin16.write_digital(1)
-	pin12.write_digital(1)
-	pin8.write_digital(0)
+	pin0.write_analog(0)
+	pin16.write_analog(speed)
+	pin12.write_analog(speed)
+	pin8.write_analog(0)
 
 def stop():
-	pin0.write_digital(0)
-	pin16.write_digital(0)
-	pin12.write_digital(0)
-	pin8.write_digital(0)
+	pin0.write_analog(0)
+	pin16.write_analog(0)
+	pin12.write_analog(0)
+	pin8.write_analog(0)
 
 def turn_left():
-	pin0.write_digital(1)
-	pin16.write_digital(0)
-	pin12.write_digital(1)
-	pin8.write_digital(0)
+	pin0.write_analog(1)
+	pin16.write_analog(0)
+	pin12.write_analog(1)
+	pin8.write_analog(0)
 
 def turn_right():
-	pin0.write_digital(0)
-	pin16.write_digital(1)
-	pin12.write_digital(0)
-	pin8.write_digital(1)
+	pin0.write_analog(0)
+	pin16.write_analog(1)
+	pin12.write_analog(0)
+	pin8.write_analog(1)
 
 def calculate(angle):
+	speed = 0
+	direction = 0
+	#set the direction and speed based on size of angle
+	if angle >= -10 and angle <= 10:
+		pass
+	elif angle < -10 and angle >= -30:
+		direction = -1
+		speed = 340
+	elif angle > 10 and angle <= 30:
+		direction = 1
+		speed = 340
+	elif angle < -30 and angle >= -50:
+		speed = 680
+ 	elif angle > 30 and angle <= 50:
+		speed = 680
+	elif angle < -50 and angle >= -70:
+		speed = 1023
+	elif angle > 50 and angle <= 70:
+		speed = 1023
 
-	#Start 80-100 -- Speed shall be zero - direction = 0
-	#Phase 1 speed 60-80 100-120 		 - direction = 1 or -1
-	#Phase 2 speed 40-60 120-140 		 - less should be postivie - positive should be negetive
-	#Phase 3 speed 20-40 140-160
-	#Final speed   0 -20 160-180
-	
-
+	#return speed, direction
 	return speed, direction
 
 
@@ -81,19 +101,20 @@ current_speed = 0
 
 while True:
 	#print('ERROR: THIS CODE IS DEFINITlY BROKEN')
-
-	try:
-		mess = recv()
+    try:
+        mess = recv()
 	#If it cannot convert to string, it dumps the value and moves on
-	except ValueError:
-		r.receive_bytes()
-	try:
-		current_speed, direction = calculate(float(mess))
-	except TypeError:
-		mess = "0"
-	
+    except ValueError:
+        r.receive_bytes()
+
+    if mess:
+        try:
+            current_speed, direction = calculate(float(mess[1:]))
+        except TypeError:
+            mess = "0"
+
 	inter = pin2.read_analog()
-	
+
 	move(current_speed, direction)
 
 	if state == 1:
@@ -125,7 +146,7 @@ while True:
 
 	#If mess contains a variable deal with it
 	if mess:
-		
+
 		#Handle different messages
 		if mess == key + "f" and not forward_on:
 			forward()
