@@ -27,64 +27,70 @@ direction = 0
 #Functions for robot movement
 
 def move(speed, direction):
-	if direction < 0:
-		reverse(speed)
-	elif direction > 0:
-		forward(speed)
+    if direction < 0:
+        reverse(speed)
+    elif direction > 0:
+        forward(speed)
+    elif direction == 0:
+        stop()
 
 def reverse(speed):
-	pin0.write_analog(speed)
-	pin16.write_analog(0)
-	pin12.write_analog(0)
-	pin8.write_analog(speed)
+    pin0.write_analog(speed)
+    pin16.write_analog(0)
+    pin12.write_analog(0)
+    pin8.write_analog(speed)
 
 def forward(speed):
-	pin0.write_analog(0)
-	pin16.write_analog(speed)
-	pin12.write_analog(speed)
-	pin8.write_analog(0)
+    pin0.write_analog(0)
+    pin16.write_analog(speed)
+    pin12.write_analog(speed)
+    pin8.write_analog(0)
 
 def stop():
-	pin0.write_analog(0)
-	pin16.write_analog(0)
-	pin12.write_analog(0)
-	pin8.write_analog(0)
+    pin0.write_analog(0)
+    pin16.write_analog(0)
+    pin12.write_analog(0)
+    pin8.write_analog(0)
 
 def turn_left():
-	pin0.write_analog(1)
-	pin16.write_analog(0)
-	pin12.write_analog(1)
-	pin8.write_analog(0)
+    pin0.write_analog(1)
+    pin16.write_analog(0)
+    pin12.write_analog(1)
+    pin8.write_analog(0)
 
 def turn_right():
-	pin0.write_analog(0)
-	pin16.write_analog(1)
-	pin12.write_analog(0)
-	pin8.write_analog(1)
+    pin0.write_analog(0)
+    pin16.write_analog(1)
+    pin12.write_analog(0)
+    pin8.write_analog(1)
 
 def calculate(angle):
-	speed = 0
-	direction = 0
+    speed = 0
+    direction = 0
 	#set the direction and speed based on size of angle
-	if angle >= -10 and angle <= 10:
-		pass
-	elif angle < -10 and angle >= -30:
-		direction = -1
-		speed = 340
-	elif angle > 10 and angle <= 30:
-		direction = 1
-		speed = 340
-	elif angle < -30 and angle >= -50:
-		speed = 680
- 	elif angle > 30 and angle <= 50:
-		speed = 680
-	elif angle < -50 and angle >= -70:
-		speed = 1023
-	elif angle > 50 and angle <= 70:
-		speed = 1023
+    if angle >= -10 and angle <= 10:
+        pass
+    elif angle < -10 and angle >= -30:
+        direction = -1
+        speed = 340
+    elif angle > 10 and angle <= 30:
+        direction = 1
+        speed = 340
+    elif angle < -30 and angle >= -50:
+        direction = -1
+        speed = 680
+    elif angle > 30 and angle <= 50:
+        direction = 1
+        speed = 680
+    elif angle < -50:
+        direction = -1
+        speed = 1023
+    elif angle > 50:
+        direction = 1
+        speed = 1023
 
 	#return speed, direction
-	return speed, direction
+    return speed, direction
 
 
 #Saves memory
@@ -113,19 +119,20 @@ while True:
         except TypeError:
             mess = "0"
 
-	inter = pin2.read_analog()
+    inter = pin2.read_analog()
+    move(current_speed, direction)
 
-	move(current_speed, direction)
-
-	if state == 1:
-		if inter < 500:
-			state = 1
-		elif inter > 500 and current_speed == 1:
-			state += 1
-	elif state == 2:
-		state = 2
-	elif state == 3 or state == 0:
-		stop()
+    #if state == 1:
+    #    if inter < 500:
+    #        state = 1
+    #    elif inter > 500 and current_speed == 1:
+    #        state = 2
+    #    elif inter > 500 and current_speed == -1:
+    #        state = 0
+	#elif state == 2:
+    #    state = 2
+	#elif state == 3 or state == 0:
+	#	stop()
 
 
 
