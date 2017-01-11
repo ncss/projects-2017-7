@@ -17,13 +17,21 @@ r.config(queue=5, channel=12, data_rate=r.RATE_250KBIT)
 key = "l"
 
 #Functions for robot movement
-def reverse():
+
+def move(speed, direction):
+	if direction < 0:
+		reverse(speed)
+	elif direction > 0:
+		forward(speed)
+
+
+def reverse(speed):
 	pin0.write_digital(1)
 	pin16.write_digital(0)
 	pin12.write_digital(0)
 	pin8.write_digital(1)
 
-def forward():
+def forward(speed):
 	pin0.write_digital(0)
 	pin16.write_digital(1)
 	pin12.write_digital(1)
@@ -47,19 +55,56 @@ def turn_right():
 	pin12.write_digital(0)
 	pin8.write_digital(1)
 
+def calculate(angle):
+
+	#Start 80-100 -- Speed shall be zero - direction = 0
+	#Phase 1 speed 60-80 100-120 		 - direction = 1 or -1
+	#Phase 2 speed 40-60 120-140 		 - less should be postivie - positive should be negetive
+	#Phase 3 speed 20-40 140-160
+	#Final speed   0 -20 160-180
+	
+
+	return speed, direction
+
+
 #Saves memory
-reverse_on = False
-forward_on = False
-stop_on    = False
+#reverse_on = False
+#forward_on = False
+#stop_on    = False
 
 
 
 #New state machine based loop
 
+state = 1
+current_speed = 0
+
 while True:
-	print('ERROR: THIS CODE IS DEFINITlY BROKEN')
+	#print('ERROR: THIS CODE IS DEFINITlY BROKEN')
 
+	try:
+		mess = recv()
+	#If it cannot convert to string, it dumps the value and moves on
+	except ValueError:
+		r.receive_bytes()
+	try:
+		current_speed, direction = calculate(float(mess))
+	except TypeError:
+		mess = "0"
+	
+	inter = pin2.read_analog()
+	
+	move(current_speed, direction)
 
+	if state == 1:
+		if inter < 500:
+			state = 1
+		elif inter > 500 and current_speed == 1:
+			state += 1
+	elif state == 2:
+		state = 2
+	elif state == 3 or state == 0:
+		stop()
 
 
 
