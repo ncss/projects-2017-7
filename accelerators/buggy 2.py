@@ -1,7 +1,7 @@
 from microbit import *
 import radio
 
-CHANNEL = 95
+CHANNEL = 51
 
 radio.on()
 radio.config(channel = CHANNEL)
