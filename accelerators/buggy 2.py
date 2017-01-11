@@ -22,7 +22,7 @@ def forward():
     pin16.write_digital(0)
     pin12.write_digital(0)
     pin8.write_digital(1)
-       
+        
 def stop():
     pin0.write_digital(0)
     pin16.write_digital(0)
@@ -53,6 +53,7 @@ while True:
             s = message[len("forward "):]
             if s == PLAYER_NAME:
                 
+                display.show(Image.HEART, delay = 200, wait = False, clear = True)
                 forward()
                 sleep(400)
                 stop()

@@ -53,6 +53,7 @@ while True:
             s = message[len("forward "):]
             if s == PLAYER_NAME:
                 
+                display.show(Image.HEART, delay = 200, wait = False, clear = True)
                 forward()
                 sleep(400)
                 stop()
