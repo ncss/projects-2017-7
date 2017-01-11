@@ -12,7 +12,7 @@ MIN_THRESHOLD = -900
 MIN_UP_TIME = 800
 MIN_DOWN_TIME = 800
 
-CHANNEL = 95
+CHANNEL = 51
 
 beat_frequency = 5
 situp_count = 0
@@ -25,7 +25,7 @@ situp_start = 0
 running = False
 
 radio.on()
-radio.config(channel=CHANNEL)
+radio.config(channel = CHANNEL)
 
 
 def show_display(n):
@@ -38,12 +38,14 @@ def show_display(n):
         display.set_pixel(int(n // 5), i, 9)
 
 def scroll_finish_time_won(ms):
-    display.scroll("You won! You took " + str(ms) + " seconds.", wait = True, loop = False)
+    display.scroll("You won! You took " + str(ms) + " ms.", wait = True, loop = False)
     
 def scroll_finish_time_lost(ms):
-    display.scroll("You lost! You took " + str(ms) + " seconds.", wait = True, loop = False)
+    display.scroll("You lost! You took " + str(ms) + " ms.", wait = True, loop = False)
     
 while True:
+    
+    #radio.send("forward " + PLAYER_NAME)
     
     if not running:
         if button_a.was_pressed():
@@ -72,6 +74,9 @@ while True:
             if up:
                 time_taken = running_time() - up_start
                 if time_taken >= MIN_UP_TIME:
+                    
+                    radio.send("forward " + PLAYER_NAME)
+                    
                     #play music
                     music.stop()
                     music.play(music.JUMP_UP, wait = False)
@@ -80,7 +85,6 @@ while True:
                     show_display(situp_count)
                     up = False
                     
-                    radio.send("forward " + PLAYER_NAME)
 
         #sitting up
         elif z < MIN_THRESHOLD:
@@ -104,7 +108,7 @@ while True:
                     scroll_finish_time_won(arr[1])
                 else:
                     scroll_finish_time_lost(arr[1])
-                    display.scroll(arr[0] + " won in " + arr[1] + " milliseconds.")
+                    display.scroll(arr[0] + " won in " + arr[1] + " ms.")
                 running = False
         
         #print(situp_count, running_time() - situp_start)

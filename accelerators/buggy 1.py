@@ -1,7 +1,7 @@
 from microbit import *
 import radio
 
-CHANNEL = 95
+CHANNEL = 51
 
 radio.on()
 radio.config(channel = CHANNEL)
@@ -62,10 +62,8 @@ while True:
             
             t = message[len("finish "):]
             arr = t.split(" ")
-            if arr[0] == PLAYER_NAME:
-                #the current buggy has won
-                scroll_finish_time_won(arr[1])
-            else:
+            
+            if not arr[0] == PLAYER_NAME:
                 #the other buggy won
                 scroll_finish_time_lost(arr[1])
                 display.scroll(arr[0] + " won in " + arr[1] + " milliseconds.")
