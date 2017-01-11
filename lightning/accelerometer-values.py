@@ -19,6 +19,6 @@ while True:
 
     if -1 < (z-29.86) / 1022.4 < 1:
         theta = acos((z-29.86)/1022.4)
-        theta_deg = degrees(theta)
+        theta_deg = degrees(theta) - 90
         print(theta, theta_deg, z)
         radio.send(key + str(theta_deg))
