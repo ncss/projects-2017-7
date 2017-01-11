@@ -1,12 +1,16 @@
 from microbit import *
+import radio
+import music
 
+radio.on()
+radio.config(channel=65, address=0x6e637373)
 initial_acceleration = (accelerometer.get_y())
 
 while True:
     Acceleration = ((accelerometer.get_y()) - initial_acceleration) / 100
     Velocity = Acceleration
     print(Velocity)
-    sleep(100)
+    sleep(200)
 
     if button_a.is_pressed() and button_b.is_pressed():
         initial_acceleration = accelerometer.get_y()
@@ -16,10 +20,14 @@ while True:
 
     if Acceleration > 8:
         display.show(Image.ARROW_N, wait=False)
+        radio.send("jump")
+        music.play(music.BA_DING, wait=False, loop=False)
         sleep(1000)
         display.clear()
         
-    if Acceleration < -8:
+    if Acceleration < -6:
         display.show(Image.ARROW_S, wait=False)
+        radio.send("crouch")
+        music.play("C4:1", wait=False, loop=False)
         sleep(1000)
         display.clear()
