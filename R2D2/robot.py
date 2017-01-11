@@ -1,6 +1,6 @@
 from microbit import *
 import radio
-
+import music
 def forward():
     pin0.write_digital(0)
     pin16.write_digital(1)
@@ -51,6 +51,7 @@ pressed = False
 
 while True:
     if button_a.was_pressed():
+        music.play(['F4:4', 'R:3', 'F4:4', 'R:3', 'F4:4', 'R:3', 'F5:8'], wait=False, loop=True)
         forward()
         pressed = True
         start = running_time()
