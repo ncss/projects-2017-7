@@ -68,7 +68,7 @@ while True:
             stop()
             pressed = False
             time = float("{0:.2f}".format((end-start)/1000))
-            display.scroll(str(time))
+            display.scroll(str(time) + "s")
         elif message == "left":
             pwm_left()
             #print(message)
