@@ -12,7 +12,7 @@ MIN_THRESHOLD = -900
 MIN_UP_TIME = 800
 MIN_DOWN_TIME = 800
 
-CHANNEL = 51
+CHANNEL = 95
 
 beat_frequency = 5
 situp_count = 0
