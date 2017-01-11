@@ -2,7 +2,7 @@ from microbit import *
 import music
 import radio
 
-PLAYER_NAME = "Player 1"
+PLAYER_NAME = "Player_1"
 
 # maximum and minimum z values to be detected as sitting up / falling down
 MAX_THRESHOLD = -200
@@ -36,12 +36,18 @@ def show_display(n):
             display.set_pixel(i, j, 9)
     for i in range(n % 5):
         display.set_pixel(int(n // 5), i, 9)
+
+def scroll_finish_time_won(ms):
+    display.scroll("You won! You took " + str(ms) + " milliseconds.", wait = True, loop = False)
+    
+def scroll_finish_time_lost(ms):
+    display.scroll("You lost! You took " + str(ms) + " milliseconds.", wait = True, loop = False)
     
 while True:
     
     if not running:
         if button_a.was_pressed():
-            display.scroll("waiting", wait=False, loop = True)
+            display.scroll("waiting", wait = False, loop = True)
             radio.send("ready " + PLAYER_NAME)
         
         msg = radio.receive()
@@ -95,11 +101,12 @@ while True:
                 s = msg[len("finish "):]
                 arr = s.split(" ")
                 if arr[0] == PLAYER_NAME:
-                    display.scroll("You won! You took " + str(arr[1]) + " seconds.", wait = True)
+                    scroll_finish_time_won(arr[1])
                 else:
-                    display.scroll("You lost! You took " + str(arr[1]) + " seconds. " + arr[0] + " won in " + str(arr[1]) + " seconds.", wait = True)
+                    scroll_finish_time_lost(arr[1])
+                    display.scroll(arr[0] + " won in " + arr[1] + " milliseconds.")
                 running = False
         
-        print(situp_count, running_time() - situp_start)
+        #print(situp_count, running_time() - situp_start)
     
     sleep(100)

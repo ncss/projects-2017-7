@@ -28,6 +28,12 @@ def stop():
     pin16.write_digital(0)
     pin12.write_digital(0)
     pin8.write_digital(0)
+    
+def scroll_finish_time_won(ms):
+    display.scroll("You won! You took " + str(ms) + " milliseconds.", wait = True, loop = False)
+    
+def scroll_finish_time_lost(ms):
+    display.scroll("You lost! You took " + str(ms) + " milliseconds.", wait = True, loop = False)
 
 while True:
     
@@ -48,20 +54,21 @@ while True:
             if s == PLAYER_NAME:
                 
                 forward()
-                sleep(500)
+                sleep(400)
                 stop()
         
         elif message.startswith("finish "):
             #somebody has won
             
-            t = int(msg[len("finish "):])
+            t = message[len("finish "):]
             arr = t.split(" ")
             if arr[0] == PLAYER_NAME:
                 #the current buggy has won
-                display.scroll("You won! You took " + str(arr[1]) + " seconds.")
+                scroll_finish_time_won(arr[1])
             else:
                 #the other buggy won
-                display.scroll("You lost! You took " + str(arr[1]) + " seconds. " + arr[0] + " won in " + str(arr[1]) + " seconds.")
+                scroll_finish_time_lost(arr[1])
+                display.scroll(arr[0] + " won in " + arr[1] + " milliseconds.")
                 
             #either way, stop the buggies
             running = False
@@ -74,18 +81,17 @@ while True:
         start = running_time()
         running = True
         
-    print(str(player1_ready), str(player2_ready))
+    #print(str(player1_ready), str(player2_ready))
     
     #if the game has not yet started, or has finished, do not detect crossing the finish line
     if not running:
         continue
         
-        
     #crossing finishing line
     if pin1.read_analog() < 10 or pin2.read_analog() < 10:        
         time = running_time() - start
         radio.send("finish " + PLAYER_NAME + " " + str(time))
-        display.scroll("You won! You took " + str(time) + " seconds", wait = True)
+        scroll_finish_time_won(time)
         running = False
             
     #if button_b.was_pressed():
