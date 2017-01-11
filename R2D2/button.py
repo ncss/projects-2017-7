@@ -28,8 +28,6 @@ button_lookup['left'] = left_arrow
 button_lookup['right'] = right_arrow
 button_type = 'left'
 
-
-
 while True:
     # The big button is context free, and can be configured with the a and b buttons.
     if button_a.is_pressed():
@@ -37,7 +35,7 @@ while True:
     if button_b.is_pressed():
         button_type = 'right'
     if under_time:
-        if pin0.read_digital() == 1:
+        if pin1.read_digital() == 1:
             button_time = running_time()
             radio.send(button_type)
             display.show(button_lookup[button_type]*9)
