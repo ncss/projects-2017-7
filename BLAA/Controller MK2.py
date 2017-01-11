@@ -1,6 +1,7 @@
 from microbit import *
 import radio
 import music
+import math
 
 radio.on()
 radio.config(channel=65, address=0x6e637373)
@@ -8,9 +9,6 @@ initial_acceleration = (accelerometer.get_y())
 
 while True:
     Acceleration = ((accelerometer.get_y()) - initial_acceleration) / 100
-    Velocity = Acceleration
-    print(Velocity)
-    sleep(200)
 
     if button_a.is_pressed() and button_b.is_pressed():
         initial_acceleration = accelerometer.get_y()
@@ -31,3 +29,7 @@ while True:
         music.play("C4:1", wait=False, loop=False)
         sleep(1000)
         display.clear()
+
+# Displacement formula:
+#   time_dis = pow(time, 2)
+#   displacement = 0.5*(acceleration*time_dis)
