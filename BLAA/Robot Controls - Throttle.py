@@ -2,15 +2,15 @@ from microbit import *
 import radio
 
 def player_1_score():
-    pin0.write_analog(throttle_1)
+    pin0.write_analog(throttle_1 / 3)
     pin16.write_digital(0)
     pin12.write_digital(0)
-    pin8.write_analog(throttle_1)
+    pin8.write_analog(throttle_1 / 3)
         
 def player_2_score():
     pin0.write_digital(0)
-    pin16.write_analog(throttle_2)
-    pin12.write_analog(throttle_2)
+    pin16.write_analog(throttle_2 / 3)
+    pin12.write_analog(throttle_2 / 3)
     pin8.write_digital(0)
 
 def stop():
@@ -23,8 +23,16 @@ radio.on()
 radio.config(channel=65, address=0x6e637373)
 throttle_1 = 1
 throttle_2 = 1
+b = 0
 while True:
+    b = pin2.read_analog()
+    print(str(b))
     message = radio.receive()
+    if b == 8:
+        radio.send('start')
+        throttle_1 = 1
+        throttle_2 = 1   
+        sleep(8000)
     if message == "Robot1":
         print(message)
         if throttle_1 > 0:
