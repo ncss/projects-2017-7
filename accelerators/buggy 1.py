@@ -14,7 +14,7 @@ PLAYER_NAME = PLAYER_NAME_1
 player1_ready = False
 player2_ready = False
 
-start = 0
+start = -1
 running = False
 
 def forward():
@@ -74,11 +74,12 @@ while True:
     
     #only when both players are ready, then the competition starts
     if player1_ready and player2_ready:
-        sleep(100)
-        radio.send("ready both")
-        sleep(3000)
-        start = running_time()
-        running = True
+        if start == -1:
+            sleep(100)
+            radio.send("ready both")
+            sleep(3000)
+            start = running_time()
+            running = True
         
     #print(str(player1_ready), str(player2_ready))
     
