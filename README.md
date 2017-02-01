@@ -33,6 +33,4 @@ Tony Lu,
 
 Emma Ndayisaba,
 
-James Constable,
-
-[Finn Foulds-Cook](https://github.com/tealkine)
+James Constable
