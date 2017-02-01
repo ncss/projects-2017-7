@@ -3,7 +3,7 @@
 
 ######Team Members:
 
-Tim Handley, Sonia Kang, Finn Foulds-Cook, Raff Fantasia
+Tim Handley, Sonia Kang, Finn, Raff Fantasia
 
 ##Project:
 
